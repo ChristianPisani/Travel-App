@@ -1,0 +1,241 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  color: $text-color
+}
+
+a {
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  margin: 10px;
+  text-decoration: none;
+  transition: 250ms;
+  position: relative;
+}
+
+a::before {
+  content: "";
+  position: absolute;
+  background-color: $text-color;
+  bottom: 0px;
+  left: 0px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 1px; 
+  transition: 200ms;
+}
+
+a:hover::before {
+  width: 100%;
+}
+
+body {
+  background: $color-bg;
+}
+
+.right {
+  position: absolute;
+  right: 0px;
+}
+
+.header {
+  background-color: $color-bg;
+  height: $header-height;
+  width: 100vw;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 200;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+}
+
+.hamburger_menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 100vh;
+  position: fixed;
+  z-index: 2;
+  right: -100%;
+  top: $header-height;
+  background-color: $color-bg;
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.2), 0 0px 0px 200vw rgba(0,0,0,0.95);
+  opacity: 0;
+  transition: 350ms;
+}
+
+.hamburger_menu.open {
+  right: 0px;
+  opacity: 1;
+}
+
+.hamburger_menu.open::before {
+  content: "";
+  position: absolute;
+  left: -40px;
+  top: 0px;
+  background-color: inherit;
+  height: 100%;
+  width: 100px;
+  transform: skew(2deg);
+  z-index: -1;
+}
+
+.main_container {
+  width: 100%;
+  background-color: $color-bg;
+  padding-top: $header-height;
+}
+
+.fill_container {
+  width: 100%;
+  height: 100%;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.darken {
+  background-color: rgba(0,0,0,0.6);
+}
+
+.showcase_container {
+  width: 100vw;
+  height: 650px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-color: white;
+  background-attachment: fixed;
+}
+
+.showcase_text_container {
+  width: 33%;
+  min-width: 300px;
+  background-color: $color-gray-light;
+  height: 100%;
+  padding: 50px;
+  position: relative;
+  z-index: 0;
+  animation: slide-in-left 1250ms forwards;
+}
+
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(0vw);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(0vw);
+  }
+}
+
+.showcase_container:nth-child(even) .showcase_text_container {
+  width: 33%;
+  min-width: 300px;
+  background-color: $color-gray-light;
+  height: 100%;
+  padding: 50px;
+  position: relative;
+  float: right;
+  z-index: 0;
+  animation: slide-in-right 1250ms forwards;
+}
+
+.showcase_text_container::before {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: 0px;
+  background-color: inherit;
+  height: 100%;
+  width: 130px;
+  transform: skew(10deg);
+  z-index: -1;
+}
+
+.showcase_container:nth-child(even) .showcase_text_container::before {
+  content: "";
+  position: absolute;
+  left: -40px;
+  top: 0px;
+  background-color: inherit;
+  height: 100%;
+  width: 100px;
+  transform: skew(-5deg);
+  z-index: -1;
+}
+
+.showcase_description {
+  max-height: 50%;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.add_button {
+  position: absolute;
+  bottom: 50px;
+  width: 80%;
+}
+
+.add_button.type1 {
+  border: 1px solid $text-color;
+  padding: 15px 25px;
+  transition: 250ms;
+  outline: none;
+}
+
+.showcase_title {
+  background-color: $color-gray-light;
+}
+
+.add_button.type1:hover {
+  background-color: $text-color;
+  color: $color-bg;
+}
+
+.add_button.type1:active {
+  background-color: inherit;
+  color: $text-color;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+
+
+h1 {
+  text-transform: uppercase;
+  font-family: Raleway, sans-serif;
+  font-size: 25px;
+  letter-spacing: 15px;
+  font-weight: 400px;
+  padding: 15px;
+  display: inline-block;
+}
+
+.showcase_container.type1 h1 {
+  text-transform: uppercase;
+  font-family: Raleway, sans-serif;
+  font-size: 40px;
+  letter-spacing: 15px;
+  font-weight: 400px;
+  border: 3px solid;
+  padding: 15px;
+  display: inline-block;
+}

@@ -1,0 +1,388 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+* {
+  margin: 0px;
+  padding: 0px;
+  color: black;
+}
+
+a {
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  margin: 10px;
+  text-decoration: none;
+  transition: 250ms;
+  position: relative;
+}
+
+a::before {
+  content: "";
+  position: absolute;
+  background-color: black;
+  bottom: 0px;
+  left: 0px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 1px;
+  transition: 200ms;
+}
+
+a:hover::before {
+  width: 100%;
+}
+
+body {
+  background: #CCC;
+}
+
+.right {
+  position: absolute;
+  right: 0px;
+}
+
+.header {
+  background-color: #CCC;
+  height: 80px;
+  width: 100vw;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 200;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.hamburger_menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 100vh;
+  position: fixed;
+  z-index: 2;
+  right: -100%;
+  top: 80px;
+  background-color: #CCC;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2), 0 0px 0px 200vw rgba(0, 0, 0, 0.95);
+  opacity: 0;
+  transition: 350ms;
+}
+
+.hamburger_menu.open {
+  right: 0px;
+  opacity: 1;
+}
+
+.hamburger_menu.open::before {
+  content: "";
+  position: absolute;
+  left: -40px;
+  top: 0px;
+  background-color: inherit;
+  height: 100%;
+  width: 100px;
+  transform: skew(2deg);
+  z-index: -1;
+}
+
+.main_container {
+  width: 100%;
+  background-color: #CCC;
+  padding-top: 80px;
+}
+
+.fill_container {
+  width: 100%;
+  height: 100%;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.darken {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.showcase_container {
+  width: 100vw;
+  height: 650px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-color: white;
+  background-attachment: fixed;
+}
+
+.showcase_text_container {
+  width: 33%;
+  min-width: 300px;
+  background-color: #CCC;
+  height: 100%;
+  padding: 50px;
+  position: relative;
+  z-index: 0;
+  animation: slide-in-left 1250ms forwards;
+}
+
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(0vw);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(0vw);
+  }
+}
+
+.showcase_container:nth-child(even) .showcase_text_container {
+  width: 33%;
+  min-width: 300px;
+  background-color: #CCC;
+  height: 100%;
+  padding: 50px;
+  position: relative;
+  float: right;
+  z-index: 0;
+  animation: slide-in-right 1250ms forwards;
+}
+
+.showcase_text_container::before {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: 0px;
+  background-color: inherit;
+  height: 100%;
+  width: 130px;
+  transform: skew(10deg);
+  z-index: -1;
+}
+
+.showcase_container:nth-child(even) .showcase_text_container::before {
+  content: "";
+  position: absolute;
+  left: -40px;
+  top: 0px;
+  background-color: inherit;
+  height: 100%;
+  width: 100px;
+  transform: skew(-5deg);
+  z-index: -1;
+}
+
+.showcase_description {
+  max-height: 50%;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.add_button {
+  position: absolute;
+  bottom: 50px;
+  width: 80%;
+}
+
+.add_button.type1 {
+  border: 1px solid black;
+  padding: 15px 25px;
+  transition: 250ms;
+  outline: none;
+}
+
+.showcase_title {
+  background-color: #CCC;
+}
+
+.add_button.type1:hover {
+  background-color: black;
+  color: #CCC;
+}
+
+.add_button.type1:active {
+  background-color: inherit;
+  color: black;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-family: Raleway, sans-serif;
+  font-size: 25px;
+  letter-spacing: 15px;
+  font-weight: 400px;
+  padding: 15px;
+  display: inline-block;
+}
+
+.showcase_container.type1 h1 {
+  text-transform: uppercase;
+  font-family: Raleway, sans-serif;
+  font-size: 40px;
+  letter-spacing: 15px;
+  font-weight: 400px;
+  border: 3px solid;
+  padding: 15px;
+  display: inline-block;
+}
+
+.hamburger {
+  margin-right: 50px;
+  transition: 250ms;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.hamburger2 {
+  background-color: black;
+  height: 3px;
+  width: 30px;
+  border-radius: 5px;
+  position: relative;
+  transition: 250ms;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hamburger2::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  width: 30px;
+  height: 3px;
+  border-radius: inherit;
+  background-color: black;
+  transform-origin: center;
+  transition: inherit;
+  animation: 250ms bottom-open forwards;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hamburger2::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 30px;
+  height: 3px;
+  border-radius: inherit;
+  background-color: black;
+  transform-origin: center;
+  animation: 250ms top-open forwards;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hamburger.open .hamburger2 {
+  background-color: transparent;
+  box-shadow: 0px 4px 5px transparent;
+}
+
+.hamburger.open .hamburger2::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  transform: rotate(45deg);
+  width: 30px;
+  height: 3px;
+  background-color: black;
+  animation: 250ms bottom-close forwards;
+}
+
+.hamburger.open .hamburger2::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  transform: rotate(-45deg);
+  width: 30px;
+  height: 3px;
+  background-color: black;
+  animation: 250ms top-close forwards;
+}
+
+
+
+@keyframes bottom-close {
+  0% {
+    top: -10px;
+  }
+  50% {
+    top: 0px;
+  }
+  0%,
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes bottom-open {
+  0% {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  0%,
+  50% {
+    top: 0px;
+  }
+  90% {
+    transform: rotate(0deg);
+    top: 15px;
+  }
+  100% {
+    transform: rotate(0deg);
+    top: 10px;
+  }
+}
+
+@keyframes top-close {
+  0% {
+    top: -10px;
+  }
+  50% {
+    top: 0px;
+  }
+  0%,
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-45deg);
+  }
+}
+
+@keyframes top-open {
+  0% {
+    transform: rotate(-45deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  0%,
+  50% {
+    top: 0px;
+  }
+  90% {
+    transform: rotate(0deg);
+    top: -15px;
+  }
+  100% {
+    transform: rotate(0deg);
+    top: -10px;
+  }
+}

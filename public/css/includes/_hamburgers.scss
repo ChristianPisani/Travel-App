@@ -1,0 +1,139 @@
+.hamburger {
+  margin-right: 50px;
+  transition: 250ms;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.hamburger2 {
+  background-color: $hamburger-color;
+  height: 3px;
+  width: 30px;
+  border-radius: 5px;
+  position: relative;
+  transition: 250ms;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hamburger2::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  width: 30px;
+  height: 3px;
+  border-radius: inherit;
+  background-color: $hamburger-color;
+  transform-origin: center;
+  transition: inherit;
+  animation: 250ms bottom-open forwards;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hamburger2::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 30px;
+  height: 3px;
+  border-radius: inherit;
+  background-color: $hamburger-color;
+  transform-origin: center;
+  animation: 250ms top-open forwards;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hamburger.open .hamburger2 {
+  background-color: transparent;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0);
+}
+
+.hamburger.open .hamburger2::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  transform: rotate(45deg);
+  width: 30px;
+  height: 3px;
+  background-color: $hamburger-color;
+  animation: 250ms bottom-close forwards;
+}
+
+.hamburger.open .hamburger2::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  transform: rotate(-45deg);
+  width: 30px;
+  height: 3px;
+  background-color: $hamburger-color;
+  animation: 250ms top-close forwards;
+}
+
+@keyframes bottom-close {
+  0% {
+    top: -10px;
+  }
+  50% {
+    top: 0px;
+  }
+  0%,50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(45deg);
+  }
+}
+@keyframes bottom-open {
+  0% {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  0%,50% {
+    top: 0px;
+  }
+  90% {
+    transform: rotate(0deg);
+    top: 15px;
+  }
+  100% {
+    transform: rotate(0deg);
+    top: 10px;
+  }
+}
+@keyframes top-close {
+  0% {
+    top: -10px;
+  }
+  50% {
+    top: 0px;
+  }
+  0%,50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-45deg);
+  }
+}
+@keyframes top-open {
+  0% {
+    transform: rotate(-45deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  0%,50% {
+    top: 0px;
+  }
+  90% {
+    transform: rotate(0deg);
+    top: -15px;
+  }
+  100% {
+    transform: rotate(0deg);
+    top: -10px;
+  }
+}
