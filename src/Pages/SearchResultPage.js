@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchPage from './SearchPage.js';
+import { AppContext } from '../AppContext.js';
 
 export default class SearchResultPage extends React.Component {
     constructor(props) {
@@ -11,24 +12,36 @@ export default class SearchResultPage extends React.Component {
         }
     }
 
+    abortContoller = new AbortController();
+
     componentDidMount() {
         let hasResults = false;
-        if (this.props.locations.length > 0) {
+        if (this.props.locations && this.props.locations.length > 0) {
             hasResults = true;
+        } else {
+            this.props.fetchLocations(this.props.query, this.props.origin)
+                .then((destinations) => {
+                    this.setState({ loading: false });
+
+                    if (destinations.length > 0) {
+                        const loadPlane = document.getElementById("loadPlane");
+
+                        loadPlane.classList.add("flyOut");
+
+                        setTimeout(() => {
+                            this.setState({
+                                loading: false,
+                                hasResults: true,
+                                destinations
+                            });
+                        }, 1000);
+                    }
+                })
         }
+    }
 
-        setTimeout(() => {
-            const loadPlane = document.getElementById("loadPlane");
-
-            loadPlane.classList.add("flyOut");
-        }, 500);
-
-        setTimeout(() => {
-            this.setState({
-                loading: false,
-                hasResults
-            });
-        }, 1000);        
+    componentWillUnmount() {
+        this.abortContoller.abort();
     }
 
     render() {
@@ -38,8 +51,8 @@ export default class SearchResultPage extends React.Component {
                     <p id="loadPlane" className="plane animatable_bounce_start_short">&#128747;</p>
                 </div>
                 <div className={this.state.loading ? "hidden" : ""}>
-                    {this.props.locations}
-                </div>    
+                    {this.state.destinations}
+                </div>
             </div>
         );
     }

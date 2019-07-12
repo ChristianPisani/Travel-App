@@ -30,12 +30,7 @@ export class AppProvider extends Component {
                     />
                 ));
 
-                this.setState({
-                    countries: destinationsMapped,
-                    error: !(destinationsMapped.length > 0)
-                });
-
-                return destinationsMapped.length > 0;
+                return destinationsMapped;
             })
             .catch(error => false);
     }

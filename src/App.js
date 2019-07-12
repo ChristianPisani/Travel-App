@@ -61,30 +61,27 @@ export default class App extends React.Component {
     render() {
         return (
             <AppProvider>
-                <Router>
-                    <div className="main_container">
-                        <Header title="Travelicious" />
+                <AppContext.Consumer>
+                    {context => (
+                        <Router>
+                            <div className="main_container">
+                                <Header title="Travelicious" />
 
-                        {this.renderRedirect(this.state.redirectTo)}
+                                {this.renderRedirect(this.state.redirectTo)}
 
-
-
-                        <AppContext.Consumer>
-                            {context => {
-                                console.log(context);
-                                return <Route exact path="/" component={() =>
+                                <Route exact path="/" component={() =>
                                     <SearchPage redirect={this.setRedirect} fetchLocations={context.fetchAndMapDestinations.bind(this)} error={this.state.error} />
                                 } />
-                            }}
-                        </AppContext.Consumer>
 
-                        <Route path="/search/:query" component={() => {
-                            return <SearchResultPage locations={this.state.countries} />
-                        }} />
+                                <Route path="/search/:origin?/:query" component={({ match }) => {
+                                    return <SearchResultPage origin={match.params.origin ? match.params.origin : "no"} query={match.params.query} fetchLocations={context.fetchAndMapDestinations.bind(this)} />
+                                }} />
 
-                        <Route path="/location/:place" component={({ match }) => <LocationPage name={match.params.place} />} />
-                    </div>
-                </Router>
+                                <Route path="/location/:place" component={({ match }) => <LocationPage name={match.params.place} />} />
+                            </div>
+                        </Router>
+                    )}
+                </AppContext.Consumer>
             </AppProvider>
         )
     }

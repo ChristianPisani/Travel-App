@@ -40,15 +40,16 @@ export default class SearchPage extends React.Component {
 
         searchInput.classList.add("shrinkX");
 
+        this.props.redirect("/search/" + query);
 
-        this.props.fetchLocations(query, pointOfSaleCountry)
-            .then((success) => {
+        /*this.props.fetchLocations(query, pointOfSaleCountry)
+            .then((destinations) => {
                 this.setState({ loading: false });
 
-                if (success) {
+                if (destinations.length > 0) {
                     this.props.redirect("/search/" + query);
                 }
-            })
+            })*/
     }
 
     render() {
@@ -57,7 +58,7 @@ export default class SearchPage extends React.Component {
                 <div className="searchContainer">
                     <input id="searchInput" className={"searchInput animatable_short" + (this.props.error ? " error" : "")} placeholder="Search" />
                     <button id="searchButton" className="searchButton animatable_medium" onClick={this.doSearch}>&#128747;</button>
-                </div>                
+                </div>
                 <p style={{ color: "darkred" }}>{this.props.error ? "Ingen resultater" : ""}</p>
                 <div id="searchLoader" className={this.state.loading ? "loader" : "loader hidden"} />
 
