@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import SearchPage from './SearchPage.js';
-import { AppContext } from '../AppContext.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class SearchResultPage extends React.Component {
     constructor(props) {
@@ -27,6 +26,7 @@ export default class SearchResultPage extends React.Component {
                         const loadPlane = document.getElementById("loadPlane");
 
                         loadPlane.classList.add("flyOut");
+                        loadPlane.classList.remove("loading");
 
                         setTimeout(() => {
                             this.setState({
@@ -41,14 +41,18 @@ export default class SearchResultPage extends React.Component {
     }
 
     componentWillUnmount() {
-        this.abortContoller.abort();
+        this.props.abortConnections();
     }
 
     render() {
         return (
             <div>
                 <div className={this.state.loading ? "searchPage animatable_medium" : "searchPage animatable_medium fade"} >
-                    <p id="loadPlane" className="plane animatable_bounce_start_short">&#128747;</p>
+                    <div className="loadPlaneContainer">
+                        <p id="loadPlane" className="plane loading animatable_bounce_start_short">
+                            <FontAwesomeIcon icon="plane" color="green" />
+                        </p>
+                    </div>
                 </div>
                 <div className={this.state.loading ? "hidden" : ""}>
                     {this.state.destinations}

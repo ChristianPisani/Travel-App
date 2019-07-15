@@ -6,6 +6,7 @@ import SabreAPI from './API/Sabre.js';
 export const AppContext = React.createContext();
 
 const sabreAPI = new SabreAPI();
+const abortContoller = new AbortController();
 
 export class AppProvider extends Component {
     state = {
@@ -14,6 +15,11 @@ export class AppProvider extends Component {
         searchHits: [],
         name: "Travelicious App",
         countries: []
+    }
+
+    abortConnections() {
+        console.log("aborted");
+        abortContoller.abort();
     }
 
     async fetchAndMapDestinations(airPortCode, pointOfSaleCountry = "NO") {
@@ -38,6 +44,7 @@ export class AppProvider extends Component {
     render() {
         return (
             <AppContext.Provider value={{
+                abortConnections: this.abortConnections,
                 fetchAndMapDestinations: this.fetchAndMapDestinations,
                 state: this.state,
                 search: (value) => this.setState({
