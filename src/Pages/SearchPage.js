@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import SabreApi from '../API/Sabre';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const sabreApi = new SabreApi();
 
@@ -57,7 +59,10 @@ export default class SearchPage extends React.Component {
             <div className="searchPage" >
                 <div className="searchContainer">
                     <input id="searchInput" className={"searchInput animatable_short" + (this.props.error ? " error" : "")} placeholder="Search" />
-                    <button id="searchButton" className="searchButton animatable_medium" onClick={this.doSearch}>&#128747;</button>
+                    <button id="searchButton" className="searchButton plane animatable_medium" onClick={this.doSearch}>
+                        <FontAwesomeIcon icon="plane" color="green" />
+                    </button>
+
                 </div>
                 <p style={{ color: "darkred" }}>{this.props.error ? "Ingen resultater" : ""}</p>
                 <div id="searchLoader" className={this.state.loading ? "loader" : "loader hidden"} />

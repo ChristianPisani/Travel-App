@@ -5,12 +5,20 @@ import ShowCase from "./Components/ShowCase";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Redirect } from 'react-router-dom';
 
+
+
 import SabreAPI from './API/Sabre.js';
 import SearchPage from './Pages/SearchPage';
 import LocationPage from './Pages/LocationPage';
 import SearchResultPage from './Pages/SearchResultPage';
 
 import { AppContext, AppProvider } from './AppContext';
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckSquare, faCoffee, faPlane } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faCoffee, faCheckSquare, faPlane);
 
 const sabreAPI = new SabreAPI();
 
@@ -74,7 +82,10 @@ export default class App extends React.Component {
                                 } />
 
                                 <Route path="/search/:origin?/:query" component={({ match }) => {
-                                    return <SearchResultPage origin={match.params.origin ? match.params.origin : "no"} query={match.params.query} fetchLocations={context.fetchAndMapDestinations.bind(this)} />
+                                    return <SearchResultPage origin={match.params.origin ? match.params.origin : "no"}
+                                        query={match.params.query}
+                                        fetchLocations={context.fetchAndMapDestinations.bind(this)}
+                                        abortConnections={context.abortConnections} />
                                 }} />
 
                                 <Route path="/location/:place" component={({ match }) => <LocationPage name={match.params.place} />} />
