@@ -459,7 +459,7 @@ h1 {
 .searchButton {
     width: 60px;
     height: 60px;
-    font-size: 45px;
+    font-size: 25px;
     outline: 0;
 }
 
@@ -475,7 +475,6 @@ h1 {
     margin-top: 20px;
     background-color: white;
     left: -15px;
-    //border-radius: 50%;
     position: relative;
     animation: fade-out 450ms 00ms alternate infinite;
 }
@@ -550,8 +549,47 @@ h1 {
 }
 
 .plane {
-    font-size: 45px;
+    font-size: 35px;
     margin-left: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plane.loading {
+    animation: plane-loading 1250ms linear 0ms infinite;
+}
+
+.plane.loading::before {
+    content: "";
+    width: 150px;
+    height: 25px;
+    position: absolute;
+    right: 50%;
+    
+    background: linear-gradient(to left, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0) 100%);
+}
+
+.loadPlaneContainer {
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+    border-left: 1px solid rgb(255,255,255,0.8);
+    border-right: 1px solid rgb(255,255,255,0.8);
+}
+
+@keyframes plane-loading {
+    0% {
+        transform: translateX(-200px);
+    }
+
+    100% {
+        transform: translateX(300px);
+    }    
+}
+
+.plane svg path {
+    color: white;
 }
 
 .flyOut {
