@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import SabreApi from '../API/Sabre';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const sabreApi = new SabreApi();
 
@@ -15,7 +17,8 @@ export default class SearchPage extends React.Component {
 
         this.state = {
             loading: false,
-            countrySelect: [<option value="NO" selected="selected">Norway</option>]
+            countrySelect: [<option value="NO" selected="selected">Norway</option>],
+            startDate: new Date()
         }
 
         const countries = sabreApi.getPointOfSaleCountries()
@@ -33,25 +36,38 @@ export default class SearchPage extends React.Component {
             });
     }
 
+    pad(n, width, z) {
+        z = z || '0';
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+
+    formatDate(date) {
+        return `${date.getFullYear()}-${this.pad(date.getMonth() + 1, 2)}-${this.pad(date.getDate(), 2)}`;
+    }
+
     doSearch = () => {
         const searchInput = document.getElementById("searchInput");
         const query = searchInput.value;
+        const { startDate } = this.state;
 
         if (query) {
             this.setState({ loading: true });
 
-            const pointOfSaleCountrySelector = document.getElementById("pointOfSaleCountrySelector");
-            const searchButton = document.getElementById("searchButton");
-            const pointOfSaleCountry = pointOfSaleCountrySelector.value;
+            //const pointOfSaleCountrySelector = document.getElementById("pointOfSaleCountrySelector");
+            //const searchButton = document.getElementById("searchButton");
+            //const pointOfSaleCountry = pointOfSaleCountrySelector.value;
+            const pointOfSaleCountry = "no";
 
             searchInput.classList.add("shrinkX");
 
-            this.props.redirect("/search/" + query);
+            console.log(this.formatDate(startDate));
+            this.props.redirect("/search/" + query + "/" + this.formatDate(startDate));
 
             /*this.props.fetchLocations(query, pointOfSaleCountry)
                 .then((destinations) => {
                     this.setState({ loading: false });
-    
+     
                     if (destinations.length > 0) {
                         this.props.redirect("/search/" + query);
                     }
@@ -59,22 +75,40 @@ export default class SearchPage extends React.Component {
         }
     }
 
+    handleDateChange(date) {
+        this.setState({
+            startDate: date
+        });
+    }
+
     render() {
         return (
             <div className="searchPage" >
                 <div className="searchContainer">
-                    <input id="searchInput" className={"searchInput animatable_short" + (this.props.error ? " error" : "")} placeholder="Search" />
-                    <button id="searchButton" className="searchButton plane animatable_medium" onClick={this.doSearch}>
-                        <FontAwesomeIcon icon="plane" color="green" />
-                    </button>
+                    <div className="searchInputWrapper">
+                        <input id="searchInput" className={"searchInput animatable_short" + (this.props.error ? " error" : "")} placeholder="Search" />
+                        <button id="searchButton" className="searchButton plane animatable_medium" onClick={this.doSearch}>
+                            <FontAwesomeIcon icon="plane" color="green" />
+                        </button>
+                    </div>
+
+                    <div className="travel-datepicker">
+                        <DatePicker
+                            id="search-date"
+                            selected={this.state.startDate}
+                            onChange={(date) => this.handleDateChange(date)}>
+                        </DatePicker>
+                    </div>
 
                 </div>
                 <p style={{ color: "darkred" }}>{this.props.error ? "Ingen resultater" : ""}</p>
                 <div id="searchLoader" className={this.state.loading ? "loader" : "loader hidden"} />
 
-                <select id="pointOfSaleCountrySelector">
+                {/*<select id="pointOfSaleCountrySelector">
                     {this.state.countrySelect}
-                </select>
+                </select>*/}
+
+
             </div>
         );
     }

@@ -18,7 +18,7 @@ export default class SearchResultPage extends React.Component {
         if (this.props.locations && this.props.locations.length > 0) {
             hasResults = true;
         } else {
-            this.props.fetchLocations(this.props.query, this.props.origin)
+            this.props.fetchLocations(this.props.query, this.props.origin, this.props.date)
                 .then((destinations) => {
                     this.setState({ loading: false });
 
@@ -36,12 +36,12 @@ export default class SearchResultPage extends React.Component {
                             });
                         }, 1000);
                     } else {
-                        this.props.redirect("/");
+                        this.props.redirect("/true");
                     }
                 })
                 .catch(e => {
                     console.log(e);
-                    this.props.redirect("/");
+                    this.props.redirect("/true");
                 });
         }
     }

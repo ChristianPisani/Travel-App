@@ -10,9 +10,9 @@ class SabreAPI extends React.Component {
         return baseUrl + destinationFinderUrl;
     }
 
-    fetchFromDestinationFinder = async (airPortCode, pointOfSaleCountry = "NO") => {
+    fetchFromDestinationFinder = async (airPortCode, pointOfSaleCountry = "NO", date) => {
         let url = baseUrl + destinationFinderUrl;
-        url += `?origin=${airPortCode}&departuredate=2019-08-01&returndate=2019-08-10&lengthofstay=7&pointofsalecountry=${pointOfSaleCountry}`;
+        url += `?origin=${airPortCode}&earliestdeparturedate=${date}&latestdeparturedate=${date}&lengthofstay=7&pointofsalecountry=${pointOfSaleCountry}`;
 
         return fetch(url, {
             headers: {

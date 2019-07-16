@@ -22,8 +22,8 @@ export class AppProvider extends Component {
         abortContoller.abort();
     }
 
-    async fetchAndMapDestinations(airPortCode, pointOfSaleCountry = "NO") {
-        return sabreAPI.fetchFromDestinationFinder(airPortCode, pointOfSaleCountry)
+    async fetchAndMapDestinations(airPortCode, pointOfSaleCountry = "NO", date) {
+        return sabreAPI.fetchFromDestinationFinder(airPortCode, pointOfSaleCountry, date)
             .then(res => {
                 const destinationsMapped = res.map((destination, i) => (
                     <ShowCase title={destination.name}

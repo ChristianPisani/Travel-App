@@ -16,9 +16,9 @@ import { AppContext, AppProvider } from './AppContext';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckSquare, faCoffee, faPlane } from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faCoffee, faPlane, faCalendarDay } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCoffee, faCheckSquare, faPlane);
+library.add(faCoffee, faCheckSquare, faPlane, faCalendarDay);
 
 const sabreAPI = new SabreAPI();
 
@@ -77,13 +77,14 @@ export default class App extends React.Component {
 
                                 {this.renderRedirect(this.state.redirectTo)}
 
-                                <Route exact path="/" component={() =>
-                                    <SearchPage redirect={this.setRedirect} fetchLocations={context.fetchAndMapDestinations.bind(this)} error={this.state.error} />
+                                <Route exact path="/:error?" component={({ match }) =>
+                                    <SearchPage redirect={this.setRedirect} fetchLocations={context.fetchAndMapDestinations.bind(this)} error={match.params.error} />
                                 } />
 
-                                <Route path="/search/:origin?/:query" component={({ match }) => {
+                                <Route path="/search/:origin?/:query/:date" component={({ match }) => {
                                     return <SearchResultPage origin={match.params.origin ? match.params.origin : "no"}
                                         query={match.params.query}
+                                        date={match.params.date}
                                         fetchLocations={context.fetchAndMapDestinations.bind(this)}
                                         abortConnections={context.abortConnections}
                                         redirect={this.setRedirect} />
