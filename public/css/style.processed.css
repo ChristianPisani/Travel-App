@@ -512,6 +512,11 @@ h1 {
     flex-direction: column;
 }
 
+.location_info_text {
+    width: 66%;
+    margin-bottom: 50px;
+}
+
 .loader {
     width: 4px;
     height: 4px;

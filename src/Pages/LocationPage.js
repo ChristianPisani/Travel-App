@@ -4,9 +4,11 @@ import { AppContext, AppProvider } from '../AppContext';
 
 import UnsplashAPI from '../API/Unsplash';
 import WikipediaAPI from '../API/Wikipedia';
+import RestCountriesApi from '../API/RestCountries';
 
 const unsplashAPI = new UnsplashAPI();
 const wikipediaAPI = new WikipediaAPI();
+const restCountriesApi = new RestCountriesApi();
 
 export default class SearchResultPage extends React.Component {
     constructor(props) {
@@ -17,7 +19,8 @@ export default class SearchResultPage extends React.Component {
             hasResults: false,
             images: "",
             coverImage: "",
-            description: ""
+            description: "",
+            country: null
         }
 
         unsplashAPI.fetchCityImages(this.props.name).then(images => {
@@ -27,11 +30,14 @@ export default class SearchResultPage extends React.Component {
             })
         });
 
-        wikipediaAPI.fetchWiki(this.props.name)
+        wikipediaAPI.fetchWikiText(this.props.name)
             .then(wikiText => {
-                this.setState({
-                    description: wikiText
-                });
+                document.getElementById("location_info_text").innerHTML = wikiText;
+            });
+
+        restCountriesApi.fetchCountryFromCode("es")
+            .then(res => {
+
             });
     }
 
@@ -60,8 +66,12 @@ export default class SearchResultPage extends React.Component {
                         <div className="location_info">
                             <h1 id="location_title">{this.props.name}</h1>
 
-                            <div className="location_info_text">
-                                <p className="location_description">{this.state.description}</p>
+                            <div className="location_info_text" id="location_info_text">
+                                <p className="location_description">Loading info...</p>
+                            </div>
+
+                            <div className="location_info_bullets" id="location_info_bullets">
+                                Loading info...
                             </div>
 
                             <div className="location_images" >

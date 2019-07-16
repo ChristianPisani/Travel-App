@@ -24,7 +24,7 @@ export default class UnsplashAPI {
         })
             .then(response => response.json())
             .then(response => {
-                console.log(response);
+                //console.log(response);
                 return response.results;
             })
             .catch(error => {

@@ -8,6 +8,26 @@ export const AppContext = React.createContext();
 const sabreAPI = new SabreAPI();
 const abortContoller = new AbortController();
 
+const mapDestinationsToShowcase = (destinations) => {
+    return destinations.map((destination, i) => (
+        <ShowCase title={destination.name}
+            country={destination.country}
+            lat={destination.lat}
+            lon={destination.lon}
+            destinationAirportCode={destination.destinationAirportCode}
+            originAirportCode={destination.originAirportCode}
+            returnDate={destination.returnDate}
+            departureDate={destination.departureDate}
+            key={`showcase_${i}`}
+            LowestFare={destination.lowestFare}
+            PricePerMile={destination.pricePerMile}
+            TravelDistance={destination.travelDistance}
+            CurrencyCode={destination.currency}
+            onClick={(e) => console.log(e)}
+        />
+    ));
+}
+
 export class AppProvider extends Component {
     state = {
         search: '',
@@ -18,31 +38,25 @@ export class AppProvider extends Component {
     }
 
     abortConnections() {
-        console.log("aborted");
         abortContoller.abort();
     }
 
-    async fetchAndMapDestinations(airPortCode, pointOfSaleCountry = "NO", date) {
-        return sabreAPI.fetchFromDestinationFinder(airPortCode, pointOfSaleCountry, date)
-            .then(res => {
-                const destinationsMapped = res.map((destination, i) => (
-                    <ShowCase title={destination.name}
-                        destinationAirportCode={destination.destinationAirportCode}
-                        originAirportCode={destination.originAirportCode}
-                        returnDate={destination.returnDate}
-                        departureDate={destination.departureDate}
-                        key={`showcase_${i}`}
-                        LowestFare={destination.lowestFare}
-                        PricePerMile={destination.pricePerMile}
-                        TravelDistance={destination.travelDistance}
-                        CurrencyCode={destination.currency}
-                        onClick={(e) => console.log(e)}
-                    />
-                ));
+    fetchAndMapDestinations(airPortCode, pointOfSaleCountry = "NO", date) {
+        if (!this.state.destinations) {
+            return sabreAPI.fetchFromDestinationFinder(airPortCode, pointOfSaleCountry, date)
+                .then(res => {
+                    const destinationsMapped = mapDestinationsToShowcase(res);
 
-                return destinationsMapped;
-            })
-            .catch(error => false);
+                    return destinationsMapped;
+                })
+                .catch(error => false);
+        } else {
+            return this.mapDestinationsToShowcase(this.state.destinations);
+        }
+    }
+
+    componentWillUnmount() {
+        console.log("App Provider OUT!");
     }
 
     render() {

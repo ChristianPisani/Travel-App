@@ -45,7 +45,8 @@ class SabreAPI extends React.Component {
             .then(resolves => {
                 resolves.forEach((destination, index) => {
                     destinationsMapped.push({
-                        name: destination,
+                        ...destination,
+                        name: destination.city,
                         lowestFare: res.FareInfo[index].LowestFare.Fare,
                         currency: res.FareInfo[index].CurrencyCode,
                         pricePerMile: res.FareInfo[index].PricePerMile,
@@ -84,7 +85,15 @@ class SabreAPI extends React.Component {
             }])
         })
             .then(res => res.json())
-            .then(res => res.Results[0].GeoCodeRS.Place[0].Name)
+            .then(res => {
+                const place = res.Results[0].GeoCodeRS.Place[0];
+                return {
+                    city: place.Name,
+                    country: place.Country,
+                    lat: place.latitude,
+                    lon: place.longitude
+                }
+            })
             .catch(error => "No city found");
     }
 

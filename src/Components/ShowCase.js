@@ -3,9 +3,11 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import UnsplashAPI from '../API/Unsplash';
 import WikipediaAPI from '../API/Wikipedia';
+import RestCountriesApi from '../API/RestCountries';
 
 const unsplashAPI = new UnsplashAPI();
 const wikipediaAPI = new WikipediaAPI();
+const restCountriesApi = new RestCountriesApi();
 
 class ShowCase extends React.Component {
     ShowCase
@@ -15,7 +17,8 @@ class ShowCase extends React.Component {
 
         this.state = {
             image: this.props.image,
-            description: this.props.description
+            description: this.props.description,
+            country: ""
         };
 
         unsplashAPI.fetchCityImage(this.props.title).then(image => {
@@ -30,6 +33,11 @@ class ShowCase extends React.Component {
                     description: wikiText
                 });
             });
+
+        restCountriesApi.fetchCountryFromCode(this.props.country)
+            .then(countryFull => {
+                this.setState({ country: countryFull[0].name });
+            });
     }
 
     render() {
@@ -37,6 +45,7 @@ class ShowCase extends React.Component {
             <div className="showcase_container type1" style={{ backgroundImage: "url(" + this.state.image + ")" }}>
                 <div className="showcase_text_container">
                     <h1 className="showcase_title type1">{this.props.title}</h1>
+                    <p>Country: {this.state.country}</p>
                     <p className="showcase_description type1">{this.state.description}</p>
                     <p>Lowest fare: {this.props.LowestFare} {this.props.CurrencyCode}</p>
                     <p>Price per mile: {this.props.PricePerMile} {this.props.CurrencyCode}</p>
