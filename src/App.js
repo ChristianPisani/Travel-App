@@ -85,7 +85,8 @@ export default class App extends React.Component {
                                     return <SearchResultPage origin={match.params.origin ? match.params.origin : "no"}
                                         query={match.params.query}
                                         fetchLocations={context.fetchAndMapDestinations.bind(this)}
-                                        abortConnections={context.abortConnections} />
+                                        abortConnections={context.abortConnections}
+                                        redirect={this.setRedirect} />
                                 }} />
 
                                 <Route path="/location/:place" component={({ match }) => <LocationPage name={match.params.place} />} />

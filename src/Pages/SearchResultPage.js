@@ -35,8 +35,14 @@ export default class SearchResultPage extends React.Component {
                                 destinations
                             });
                         }, 1000);
+                    } else {
+                        this.props.redirect("/");
                     }
                 })
+                .catch(e => {
+                    console.log(e);
+                    this.props.redirect("/");
+                });
         }
     }
 

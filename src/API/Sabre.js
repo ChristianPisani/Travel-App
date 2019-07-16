@@ -49,7 +49,11 @@ class SabreAPI extends React.Component {
                         lowestFare: res.FareInfo[index].LowestFare.Fare,
                         currency: res.FareInfo[index].CurrencyCode,
                         pricePerMile: res.FareInfo[index].PricePerMile,
-                        travelDistance: res.FareInfo[index].Distance
+                        travelDistance: res.FareInfo[index].Distance,
+                        returnDate: res.FareInfo[index].ReturnDateTime,
+                        departureDate: res.FareInfo[index].DepartureDateTime,
+                        destinationAirportCode: res.FareInfo[index].DestinationLocation,
+                        originAirportCode: res.OriginLocation
                     });
                 });
             })

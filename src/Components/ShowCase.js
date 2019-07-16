@@ -42,6 +42,7 @@ class ShowCase extends React.Component {
                     <p>Price per mile: {this.props.PricePerMile} {this.props.CurrencyCode}</p>
                     <p>Travel distance: {this.props.TravelDistance} miles</p>
                     {/*<button className="add_button type1" onClick={() => this.props.onClick(this.props.title)}>Add {this.props.title} to travel</button>*/}
+                    <a href={`https://www.momondo.no/flight-search/${this.props.originAirportCode}-${this.props.destinationAirportCode}}/${this.props.departureDate}/${this.props.returnDate}?sort=price_a`}>Find tickets</a>
                     <Link className="add_button type1" to={"/location/" + this.props.title}>More about {this.props.title}</Link>
                 </div>
             </div>

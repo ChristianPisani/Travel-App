@@ -20,38 +20,43 @@ export default class SearchPage extends React.Component {
 
         const countries = sabreApi.getPointOfSaleCountries()
             .then(countries => {
-                const countriesMap = countries.Countries.map(country => {
-                    if (country.CountryCode === defaultCountry) {
-                        return <option value={country.CountryCode} selected="selected">{country.CountryName}</option>
-                    } else {
-                        return <option value={country.CountryCode}>{country.CountryName}</option>
-                    }
-                });
-                this.setState({ countrySelect: countriesMap });
+                if (countries.Countries) {
+                    const countriesMap = countries.Countries.map(country => {
+                        if (country.CountryCode === defaultCountry) {
+                            return <option value={country.CountryCode} selected="selected">{country.CountryName}</option>
+                        } else {
+                            return <option value={country.CountryCode}>{country.CountryName}</option>
+                        }
+                    });
+                    this.setState({ countrySelect: countriesMap });
+                }
             });
     }
 
     doSearch = () => {
-        this.setState({ loading: true });
-
         const searchInput = document.getElementById("searchInput");
-        const pointOfSaleCountrySelector = document.getElementById("pointOfSaleCountrySelector");
-        const searchButton = document.getElementById("searchButton");
         const query = searchInput.value;
-        const pointOfSaleCountry = pointOfSaleCountrySelector.value;
 
-        searchInput.classList.add("shrinkX");
+        if (query) {
+            this.setState({ loading: true });
 
-        this.props.redirect("/search/" + query);
+            const pointOfSaleCountrySelector = document.getElementById("pointOfSaleCountrySelector");
+            const searchButton = document.getElementById("searchButton");
+            const pointOfSaleCountry = pointOfSaleCountrySelector.value;
 
-        /*this.props.fetchLocations(query, pointOfSaleCountry)
-            .then((destinations) => {
-                this.setState({ loading: false });
+            searchInput.classList.add("shrinkX");
 
-                if (destinations.length > 0) {
-                    this.props.redirect("/search/" + query);
-                }
-            })*/
+            this.props.redirect("/search/" + query);
+
+            /*this.props.fetchLocations(query, pointOfSaleCountry)
+                .then((destinations) => {
+                    this.setState({ loading: false });
+    
+                    if (destinations.length > 0) {
+                        this.props.redirect("/search/" + query);
+                    }
+                })*/
+        }
     }
 
     render() {

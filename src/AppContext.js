@@ -27,6 +27,10 @@ export class AppProvider extends Component {
             .then(res => {
                 const destinationsMapped = res.map((destination, i) => (
                     <ShowCase title={destination.name}
+                        destinationAirportCode={destination.destinationAirportCode}
+                        originAirportCode={destination.originAirportCode}
+                        returnDate={destination.returnDate}
+                        departureDate={destination.departureDate}
                         key={`showcase_${i}`}
                         LowestFare={destination.lowestFare}
                         PricePerMile={destination.pricePerMile}
