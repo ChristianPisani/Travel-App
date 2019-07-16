@@ -34,10 +34,7 @@ class ShowCase extends React.Component {
                 });
             });
 
-        restCountriesApi.fetchCountryFromCode(this.props.country)
-            .then(countryFull => {
-                this.setState({ country: countryFull[0].name });
-            });
+
     }
 
     render() {

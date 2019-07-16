@@ -24,21 +24,20 @@ export default class SearchResultPage extends React.Component {
         }
 
         unsplashAPI.fetchCityImages(this.props.name).then(images => {
-            this.setState({
-                images: images.slice(1),
-                coverImage: images[0].urls.full
-            })
+            if (images) {
+                this.setState({
+                    images: images.slice(1),
+                    coverImage: images[0].urls.full
+                })
+            }
         });
 
-        wikipediaAPI.fetchWikiText(this.props.name)
+        wikipediaAPI.fetchWikiText(this.props.name.split(" ")[0])
             .then(wikiText => {
                 document.getElementById("location_info_text").innerHTML = wikiText;
             });
 
-        restCountriesApi.fetchCountryFromCode("es")
-            .then(res => {
 
-            });
     }
 
     componentDidMount() {
