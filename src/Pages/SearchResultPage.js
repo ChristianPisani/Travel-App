@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AppProvider, AppContext } from '../AppContext';
 
 export default class SearchResultPage extends React.Component {
     constructor(props) {
@@ -18,7 +19,7 @@ export default class SearchResultPage extends React.Component {
         if (this.props.locations && this.props.locations.length > 0) {
             hasResults = true;
         } else {
-            this.props.fetchLocations(this.props.query, this.props.origin, this.props.date)
+            this.context.fetchAndMapDestinations(this.props.query, this.props.origin, this.props.date)
                 .then((destinations) => {
                     this.setState({ loading: false });
 
@@ -36,12 +37,12 @@ export default class SearchResultPage extends React.Component {
                             });
                         }, 1000);
                     } else {
-                        this.props.redirect("/true");
+                        this.props.redirect("/", true);
                     }
                 })
                 .catch(e => {
                     console.log(e);
-                    this.props.redirect("/true");
+                    this.props.redirect("/", true);
                 });
         }
     }
@@ -67,3 +68,5 @@ export default class SearchResultPage extends React.Component {
         );
     }
 }
+
+SearchResultPage.contextType = AppContext.Consumer;

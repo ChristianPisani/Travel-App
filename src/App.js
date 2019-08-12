@@ -44,10 +44,11 @@ export default class App extends React.Component {
         }
     }
 
-    setRedirect = (to) => {
+    setRedirect = (to, error = false) => {
         this.setState({
             redirect: true,
-            redirectTo: { to }
+            redirectTo: { to },
+            error
         });
     }
     renderRedirect = (toRoute) => {
@@ -77,8 +78,8 @@ export default class App extends React.Component {
 
                                 {this.renderRedirect(this.state.redirectTo)}
 
-                                <Route exact path="/:error?" component={({ match }) =>
-                                    <SearchPage redirect={this.setRedirect} fetchLocations={context.fetchAndMapDestinations.bind(this)} error={match.params.error} />
+                                <Route exact path="" component={({ match }) =>
+                                    <SearchPage redirect={this.setRedirect} fetchLocations={context.fetchAndMapDestinations.bind(this)} error={this.state.error} />
                                 } />
 
                                 <Route path="/search/:origin?/:query/:date" component={({ match }) => {
